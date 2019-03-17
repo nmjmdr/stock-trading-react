@@ -34,7 +34,6 @@ class Result extends Component {
     render() {
        
         const { classes, object, onBuy } = this.props;
-        console.log(object)
         return (
            <div className="Result">
                 <div className="ResultHalfBox">
@@ -54,7 +53,7 @@ class Result extends Component {
                 </div>
                 <div className="ResultHalfBox">
                     <Button onClick={()=>{
-                        onBuy(object.symbol);
+                        onBuy(object);
                     }}>Buy</Button>
                 </div>
                 </div>

@@ -46,7 +46,6 @@ class Results extends Component {
         return (
            <div className="ResultsBox">
                {results.map((r,i)=>{
-                   console.log(r,i)
                    return <Result object={r} onBuy={onBuy} />
                })
                }
