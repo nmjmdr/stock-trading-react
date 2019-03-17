@@ -1,0 +1,10 @@
+{
+    "api" : {
+        "port": 8901,
+        "name": "TradeAPI"
+    },
+    "trading" : {
+        "apiKey": "demo"
+    }
+
+}

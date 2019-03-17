@@ -1,0 +1,108 @@
+.App {
+  text-align: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.MainContainer {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+.LeftContainer {
+  flex: 0 1 70%;
+  border-right: 0.5px solid lightgrey;
+  padding: .5em;
+}
+
+.RightContainer {
+  flex: 0 1 30%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.MainBox{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100vh;
+  width: 100vh;
+}
+
+.HalfBox {
+  border-top: 0.1em solid lightgrey;  
+  align-items: flex-start;
+  min-height: 50%;
+}
+
+.Font {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.Result {
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  padding-top: 0.01em;
+  padding-left: 1.0em;
+  flex-direction: column;
+  border-top: 0.1em solid lightgrey;
+}
+
+.ResultHalfBox {
+  align-items: flex-start;
+}
+
+.ResultsBox {
+  overflow-y:scroll; 
+  height: 100vh;
+}
+
+.MainResult {
+  display: flex;
+  align-items: stretch;
+}
+
+.BuyBox {
+  display: flex;
+  align-items: flex-end;
+}
+
+.WelcomeMessage {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  font-size: 1.5em;
+  padding-bottom: 1em;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
