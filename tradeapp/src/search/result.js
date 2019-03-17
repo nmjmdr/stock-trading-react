@@ -24,7 +24,11 @@ const styles = theme => ({
   });
 
 class Result extends Component {
-    state = {
+    
+    details(obj) {
+        if(obj.price) {
+            return `${obj.price} ${obj.change}`
+        }
     }
     
     render() {
@@ -40,7 +44,12 @@ class Result extends Component {
                 </div>
                 <div className="ResultHalfBox">
                 <Typography variant="p" className={classes.content} color="textSecondary" gutterBottom={true} >
-                    {object.name}
+                    {object.name} 
+                </Typography>
+                </div>
+                <div className="ResultHalfBox">
+                <Typography variant="p" className={classes.content} color="textSecondary" gutterBottom={true} >
+                {this.details(object)}
                 </Typography>
                 </div>
                 <div className="ResultHalfBox">

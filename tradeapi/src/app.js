@@ -1,6 +1,10 @@
 const config = require('../config')
 const server = require('./api/server');
 const routes = require('./api/routes');
+const r = require('dotenv').config();
+const env = require('./env');
+
+env.loadVars();
 
 const app = server.create({ handleUncaughtExceptions: true });
 routes.create(app);

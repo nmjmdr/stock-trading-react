@@ -1,6 +1,8 @@
 const status = require('./handlers/status');
 const funds = require('./handlers/funds')
 const search = require('./handlers/search')
+const trade = require('./handlers/trade')
+const portfolio = require('./handlers/portfolio')
 
 exports.create = (app) => {
   app.get({ name: "status",
@@ -22,5 +24,13 @@ exports.create = (app) => {
   app.post({ name: "search",
     path: "/search"
   }, [search]);
+
+  app.post({ name: "buy",
+    path: "/trade/:userID/buy"
+  }, [trade.buy]);
+
+  app.get({ name: "folio",
+    path: "/folio/:userID"
+  }, [portfolio.get]);
 
 }
