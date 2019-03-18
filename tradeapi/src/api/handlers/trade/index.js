@@ -1,4 +1,5 @@
-const store = require('../../../trade');
+const store = require('../../../store');
+const trade = require('../../../trade');
 
 const buy = (req, res, next) => {
     // update cash
@@ -21,14 +22,29 @@ const buy = (req, res, next) => {
             error: "Missing quantity variable in body"
         })
     }
-
     const storeInstance = store.getInstance()
     const quantityInt = parseFloat(quantity)
     const result = trade.instance(storeInstance).buy(userID,symbol,quantityInt)
+    .then((r)=>{
+        console.log("Here: ", r)
+        if(!r.success) {
+            res.send(400,{
+                "reason": r.reason,
+            });
+            return;
+        }
+        res.send(200,{
+            "result": result,
+        });
+        return next();
+    })
+    .catch((err)=>{
+        res.send(500,{
+            "error": err,
+        });
+    })
 
-    res.send(200,{
-      "result": result,
-    });
+    
     return next();
 }
 

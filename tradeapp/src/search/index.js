@@ -4,6 +4,8 @@ import '../App.css';
 import searchApi from './invoke-search';
 import Results from './results';
 import BuyModal from './buymodal';
+import transaction from '../funds/transaction';
+import tradeApi from './invoke-buy';
 class Search extends Component {
 
   constructor(props) {
@@ -11,12 +13,23 @@ class Search extends Component {
       this.state = {
           results: [],
           buyObject: null,
+          cash: 0,
       }
       this.onChange = this.onChange.bind(this)
       this.onBuy = this.onBuy.bind(this)
       this.handleBuyCancel = this.handleBuyCancel.bind(this)
       this.handleBuyOK = this.handleBuyOK.bind(this)
   }
+
+  componentDidMount(){
+    transaction.currentFunds('abc')
+    .then((r)=>{
+        this.setState(state => ({
+            cash: r,
+        }));
+    })
+}
+
   onChange(evt){
     const val = evt.target.value
     if(!val || val.length < 2) {
@@ -47,7 +60,10 @@ class Search extends Component {
     this.setState((state)=> ({
         buyObject: null,
     }));
-    console.log("Symbol, quantity: ", symbol, quantity)
+    tradeApi.buy('abc',symbol,quantity)
+    .then((r)=>{
+        console.log(r)
+    })
   }
 
   render() {
@@ -56,7 +72,7 @@ class Search extends Component {
       <div>
         <SearchAppBar onChange={this.onChange}/>
         <Results results={this.state.results} onBuy={this.onBuy} />
-        {buyObject && <BuyModal symbol={buyObject.symbol} price={buyObject.price} okHandler={this.handleBuyOK} cancelHandler={this.handleBuyCancel} /> }
+        {buyObject && <BuyModal symbol={buyObject.symbol} price={buyObject.price} okHandler={this.handleBuyOK} cancelHandler={this.handleBuyCancel} cash={this.state.cash} /> }
       </div>
     );
   }

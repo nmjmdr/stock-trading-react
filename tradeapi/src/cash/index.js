@@ -11,7 +11,6 @@ const instance = (store) => {
     }
 
     const withdraw = (userID, amount) => {
-        console.log(store)
         const key = `cash_${userID}`
         let current = store.get(key)
         if(!current) {

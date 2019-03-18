@@ -1,8 +1,12 @@
 const env = require('../env')
 const market = require('../market')
 const cash = require('../cash')
+const portfolio = require('../portfolio');
 
 const instance = (store) => {
+    const cashInstance = cash.instance(store)
+    const portfolioInstance = portfolio.instance(store)
+
     const buy = (userID, symbol, amount) => {
         return market.price(symbol)
         .then((priceData)=>{
@@ -10,14 +14,25 @@ const instance = (store) => {
                 throw new Error(`No price data fouund for ${symbol}`)
             }
             const cost = priceData.price * amount
-            const cashInstance = caches.instance(store)
-            if(cost > cashInstance.current()) {
-                throw new Error("Insufficient funds")
+            
+            const cashHeld = cashInstance.current(userID);
+            console.log(cost, cashHeld)
+            if(cost > cashHeld) {
+                return {
+                    success: false,
+                    reason: "Insufficient funds",
+                }
             }
-            cash.withdraw(userID, cost)
-            portfolio.add(userID, symbol, quantity, priceData.price)
+            try {
+            cashInstance.withdraw(userID, cost)
+            portfolioInstance.add(userID, symbol, amount, priceData.price)
+            } catch(err) {
+                console.log("Error: ", err)
+            }
+            return {
+                success: true,
+            }
         })
-        return true
     }
     return {
         buy,

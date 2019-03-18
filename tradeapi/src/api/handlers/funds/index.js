@@ -2,7 +2,6 @@ const store = require('../../../store');
 const cash = require('../../../cash')
 
 const add = (req, res, next) => {
-    console.log("Here0")
     // update cash
     const userID = req.params.userID
     if(!userID) {
@@ -12,16 +11,14 @@ const add = (req, res, next) => {
     }
     const delta = req.body && req.body.delta
     if(!delta) {
-        console.log("Here1")
         return res.send(400,{
             error: "Missing delta variable in body"
         })
     }
     const storeInstance = store.getInstance()
     const deltaAmount = parseFloat(delta)
-    console.log("Delta amount: ", deltaAmount)
     const updated = cash.instance(storeInstance).add(userID, deltaAmount)
-    console.log("Here2: ", updated)
+
     res.send(200,{
       "cash": updated,
     });

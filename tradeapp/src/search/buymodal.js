@@ -39,12 +39,37 @@ function getModalStyle() {
 
 class BuyModal extends Component {
     
-    state = {
-        quantity: 0,
+    constructor(props) {
+        super(props)
+        this.state = {
+            quantity: 0,
+        }
+        this.handleChange = this.handleChange.bind(this)
     }
 
-    handleChange = name => event => {
+    handleChange = cost => event => {
+        if(!event || !event.target) {
+            return;
+        }
+
         const val = event.target.value;
+
+        if(!cost) {
+            this.setState({
+                errorMessage: "Unable to compute cost, Try after some time",
+                quantity: val,
+            })
+            return;
+        }
+
+        if(cost > this.props.cash) {
+            this.setState({
+                errorMessage: "Insufficient funds to execute order",
+                quantity: val,
+            })
+            return;
+        }
+
         if(val < 0) {
             this.setState({
                 errorMessage: "Has to greater than 0",
@@ -62,10 +87,14 @@ class BuyModal extends Component {
     render() {
         const { classes, symbol, price, okHandler, cancelHandler } = this.props;
         const {errorMessage} = this.state;
+        
+        let cost = price? (price*this.state.quantity).toFixed(2) : null;
+
+
         return (
             <div style={getModalStyle()} className={classes.paper}>
             <Typography variant="h6" id="modal-title">
-              Buy {symbol} @ {price} = {(price*this.state.quantity).toFixed(2)}$
+              Buy {symbol} @ {price} = {cost} $
             </Typography>
             <Typography variant="subtitle1" id="simple-modal-description">
                 <form className={classes.container} noValidate autoComplete="off">
@@ -73,7 +102,7 @@ class BuyModal extends Component {
                     id="standard-number"
                     label="How many?"
                     value={this.state.quantity}
-                    onChange={this.handleChange('quantity')}
+                    onChange={this.handleChange(cost)}
                     type="number"
                     className={classes.textField}
                     InputLabelProps={{
