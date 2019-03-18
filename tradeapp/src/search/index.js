@@ -62,7 +62,8 @@ class Search extends Component {
     }));
     tradeApi.buy('abc',symbol,quantity)
     .then((r)=>{
-        console.log(r)
+        // replace this with an appropriate message
+        console.log("Buy success")
     })
   }
 

@@ -16,7 +16,6 @@ const instance = (store) => {
             const cost = priceData.price * amount
             
             const cashHeld = cashInstance.current(userID);
-            console.log(cost, cashHeld)
             if(cost > cashHeld) {
                 return {
                     success: false,
@@ -27,7 +26,10 @@ const instance = (store) => {
             cashInstance.withdraw(userID, cost)
             portfolioInstance.add(userID, symbol, amount, priceData.price)
             } catch(err) {
-                console.log("Error: ", err)
+                return {
+                    success: false,
+                    error: err,
+                }
             }
             return {
                 success: true,

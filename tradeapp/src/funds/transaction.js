@@ -1,6 +1,5 @@
 const addFunds = async (delta, userID)  => {
     const url = `http://localhost:8901/funds/${userID}/add`
-    console.log(url)
     const response = await fetch(url, {
         method: 'post',
         headers: {'Content-Type':'application/json'},
@@ -11,7 +10,6 @@ const addFunds = async (delta, userID)  => {
 
     if(!response.ok) {
         const errorMessage = await response.json();
-        console.log(errorMessage)
         throw new Error('Unable to make request',response.status, errorMessage.error)
     }
     const json = await response.json();
@@ -30,7 +28,6 @@ const withdrawFunds = async (delta, userID)  => {
 
     if(!response.ok) {
         const errorMessage = await response.json();
-        console.log(errorMessage)
         throw new Error('Unable to make request',response.status, errorMessage.error)
     }
     const json = await response.json();
@@ -45,7 +42,6 @@ const currentFunds = async (userID)  => {
 
     if(!response.ok) {
         const errorMessage = await response.json();
-        console.log(errorMessage)
         throw new Error('Unable to make request',response.status, errorMessage.error)
     }
     const json = await response.json();

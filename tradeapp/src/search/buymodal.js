@@ -61,8 +61,9 @@ class BuyModal extends Component {
             })
             return;
         }
-
-        if(cost > this.props.cash) {
+        const parsedCost = parseFloat(cost)
+       
+        if(parsedCost > this.props.cash) {
             this.setState({
                 errorMessage: "Insufficient funds to execute order",
                 quantity: val,
@@ -88,8 +89,7 @@ class BuyModal extends Component {
         const { classes, symbol, price, okHandler, cancelHandler } = this.props;
         const {errorMessage} = this.state;
         
-        let cost = price? (price*this.state.quantity).toFixed(2) : null;
-
+        const cost = price? (parseFloat(price)*this.state.quantity).toFixed(2) : null;
 
         return (
             <div style={getModalStyle()} className={classes.paper}>

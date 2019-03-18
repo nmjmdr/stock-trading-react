@@ -26,7 +26,6 @@ const buy = (req, res, next) => {
     const quantityInt = parseFloat(quantity)
     const result = trade.instance(storeInstance).buy(userID,symbol,quantityInt)
     .then((r)=>{
-        console.log("Here: ", r)
         if(!r.success) {
             res.send(400,{
                 "reason": r.reason,

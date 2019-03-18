@@ -22,7 +22,6 @@ const styles = theme => ({
   
   function FolioTable(props) {
     const { classes, rows } = props;
-    console.log("Rows:", rows)
     return (
       <Paper className={classes.root}>
         <Table className={classes.table}>

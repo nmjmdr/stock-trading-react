@@ -15,10 +15,8 @@ class Holdings extends Component {
  
 
   componentDidMount() {
-    console.log("Helloo ")
     portfolio.currentFolio('abc')
     .then((r)=>{
-      console.log("Here: ", r)
       const rows = r;
       this.setState((state)=>({
         rows: rows,
